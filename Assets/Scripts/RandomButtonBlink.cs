@@ -4,26 +4,13 @@ using System.Collections.Generic;
 
 public class RandomButtonBlink : MonoBehaviour
 {
-    public List<GameObject> buttons;
-    public float blinkDuration = 1.0f; // 各ボタンが光る時間
-    private GameObject currentBlinkingButton;
-    private Coroutine blinkCoroutine;
+    public List<GameObject> buttons;         // ボタンのリスト
+    private GameObject currentBlinkingButton; // 現在光っているボタン
 
     void Start()
     {
         // 最初のボタンを光らせる
-        blinkCoroutine = StartCoroutine(BlinkRoutine());
-    }
-
-    private IEnumerator BlinkRoutine()
-    {
-        while (true)
-        {
-            SetNextBlinkingButton();
-
-            // 指定時間だけ待機し、次のボタンへ移行
-            yield return new WaitForSeconds(blinkDuration);
-        }
+        SetNextBlinkingButton();
     }
 
     public void SetNextBlinkingButton()
@@ -45,14 +32,10 @@ public class RandomButtonBlink : MonoBehaviour
         return currentBlinkingButton;
     }
 
-    // ボタンがクリックされたときに呼び出す
+    // ボタンがタッチされたときに呼び出す
     public void ButtonClicked()
     {
-        // 現在のコルーチンを停止して再スタート
-        if (blinkCoroutine != null)
-        {
-            StopCoroutine(blinkCoroutine);
-        }
-        blinkCoroutine = StartCoroutine(BlinkRoutine());
+        // タッチされた際に次のボタンへ移行
+        SetNextBlinkingButton();
     }
 }

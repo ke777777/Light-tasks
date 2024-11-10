@@ -4,16 +4,16 @@ using System.Collections;
 
 public class ButtonReactionCounter : MonoBehaviour
 {
-    public RandomButtonBlink buttonBlinker; // RandomButtonBlinkスクリプトへの参照
-    public TextMeshPro reactionText;
-    public TextMeshPro timerText; // タイマー表示用のテキスト
+    public RandomButtonBlink buttonBlinker;
+    // public TextMeshPro reactionText;
+    public TextMeshPro timerText;
     private int reactionCount = 0;
     private float timeRemaining = 60f; // 1分（60秒）
     private bool timerRunning = true;
 
     void Start()
     {
-        UpdateReactionText();
+        // UpdateReactionText();
         StartCoroutine(TimerCoroutine());
     }
 
@@ -21,13 +21,6 @@ public class ButtonReactionCounter : MonoBehaviour
     {
         if (!timerRunning)
             return;
-
-        // コントローラーのAボタン入力をチェック
-        if (OVRInput.GetDown(OVRInput.Button.One)) // Aボタン（Oculusコントローラー）
-        {
-            Ray ray = new Ray(OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch), OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch) * Vector3.forward);
-            CheckHitAndCount(ray);
-        }
 
         // マウス左クリックをチェック
         if (Input.GetMouseButtonDown(0)) // 左クリック
@@ -37,7 +30,6 @@ public class ButtonReactionCounter : MonoBehaviour
         }
     }
 
-    // ボタンがクリックされた場合にカウントを増やす
     private void CheckHitAndCount(Ray ray)
     {
         RaycastHit hit;
@@ -49,8 +41,8 @@ public class ButtonReactionCounter : MonoBehaviour
             // 現在光っているボタンと一致する場合のみカウント
             if (clickedButton == buttonBlinker.GetCurrentBlinkingButton())
             {
-                reactionCount++;
-                UpdateReactionText();
+                // reactionCount++;
+                // UpdateReactionText();
 
                 // ボタンクリックを通知し、次のボタンへ移行
                 buttonBlinker.ButtonClicked();
@@ -58,7 +50,6 @@ public class ButtonReactionCounter : MonoBehaviour
         }
     }
 
-    // タイマーのカウントダウン
     private IEnumerator TimerCoroutine()
     {
         while (timeRemaining > 0)
@@ -68,13 +59,12 @@ public class ButtonReactionCounter : MonoBehaviour
             timeRemaining--;
         }
 
-        // タイマーが終了したらカウントを停止
         timerRunning = false;
         timerText.text = "残り時間: 0";
     }
 
-    private void UpdateReactionText()
+    /* private void UpdateReactionText()
     {
         reactionText.text = "Count: " + reactionCount;
-    }
+    } */
 }

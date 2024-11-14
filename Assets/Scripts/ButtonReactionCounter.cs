@@ -1,19 +1,18 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class ButtonReactionCounter : MonoBehaviour
 {
     public RandomButtonBlink buttonBlinker;
-    // public TextMeshPro reactionText;
     public TextMeshPro timerText;
-    private int reactionCount = 0;
+    public ScoreManager scoreManager; // ScoreManager の参照を追加
     private float timeRemaining = 60f; // 1分（60秒）
     private bool timerRunning = true;
 
     void Start()
     {
-        // UpdateReactionText();
         StartCoroutine(TimerCoroutine());
     }
 
@@ -22,32 +21,7 @@ public class ButtonReactionCounter : MonoBehaviour
         if (!timerRunning)
             return;
 
-        // マウス左クリックをチェック
-        if (Input.GetMouseButtonDown(0)) // 左クリック
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            CheckHitAndCount(ray);
-        }
-    }
-
-    private void CheckHitAndCount(Ray ray)
-    {
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
-        {
-            GameObject clickedButton = hit.collider.gameObject;
-
-            // 現在光っているボタンと一致する場合のみカウント
-            if (clickedButton == buttonBlinker.GetCurrentBlinkingButton())
-            {
-                // reactionCount++;
-                // UpdateReactionText();
-
-                // ボタンクリックを通知し、次のボタンへ移行
-                buttonBlinker.ButtonClicked();
-            }
-        }
+        // 必要に応じて他の処理を追加
     }
 
     private IEnumerator TimerCoroutine()
@@ -61,10 +35,21 @@ public class ButtonReactionCounter : MonoBehaviour
 
         timerRunning = false;
         timerText.text = "残り時間: 0";
+
+        // ゲームオーバー処理を呼び出し
+        GameOver();
     }
 
-    /* private void UpdateReactionText()
+    private void GameOver()
     {
-        reactionText.text = "Count: " + reactionCount;
-    } */
+        // ScoreManager からスコアを取得
+        int finalScore = scoreManager.GetScore();
+
+        // スコアを保存
+        PlayerPrefs.SetInt("FinalScore", finalScore);
+        PlayerPrefs.Save();
+
+        // スコアシーンをロード
+        SceneManager.LoadScene("Score");
+    }
 }

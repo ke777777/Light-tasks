@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LightTask.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Score.unity
+    guid: a045023691f4f0743b75aae47b702904
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 102e65cec7bf57d458e441737b98afcf,
       type: 2}

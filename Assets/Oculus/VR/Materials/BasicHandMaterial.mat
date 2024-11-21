@@ -25,14 +25,10 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Ints: []
-    m_Floats:
-    - _GlossMapScale: 0.508
-    - _Glossiness: 0.389
-    - _GlossyReflections: 1
-    - _Parallax: 0.02
+    m_Floats: []
     m_Colors: []
   m_BuildTextureStacks: []
---- !u!114 &8612264046152333321
+--- !u!114 &8829448912122355303
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

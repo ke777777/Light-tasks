@@ -7,8 +7,8 @@ public class ButtonReactionCounter : MonoBehaviour
 {
     public RandomButtonBlink buttonBlinker;
     public TextMeshPro timerText;
-    public ScoreManager scoreManager; // ScoreManager の参照を追加
-    private float timeRemaining = 60f; // 1分（60秒）
+    public ScoreManager scoreManager;
+    private float timeRemaining = 60f;
     private bool timerRunning = true;
 
     void Start()
@@ -20,8 +20,6 @@ public class ButtonReactionCounter : MonoBehaviour
     {
         if (!timerRunning)
             return;
-
-        // 必要に応じて他の処理を追加
     }
 
     private IEnumerator TimerCoroutine()
@@ -42,14 +40,11 @@ public class ButtonReactionCounter : MonoBehaviour
 
     private void GameOver()
     {
-        // ScoreManager からスコアを取得
         int finalScore = scoreManager.GetScore();
 
-        // スコアを保存
         PlayerPrefs.SetInt("FinalScore", finalScore);
         PlayerPrefs.Save();
 
-        // スコアシーンをロード
         SceneManager.LoadScene("Score");
     }
 }

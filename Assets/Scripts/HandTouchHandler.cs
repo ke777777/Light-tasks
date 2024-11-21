@@ -53,7 +53,7 @@ public class HandTouchHandler : MonoBehaviour
                 if (!isTouched)
                 {
                     isTouched = true;
-                    scoreManager.AddScore(1); // ScoreManager にスコアを加算
+                    scoreManager.AddScore(1);
 
                     // 次のボタンに移行
                     buttonManager.ButtonClicked();
